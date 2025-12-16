@@ -1,8 +1,7 @@
-import { globalErrorHandler } from "./errorHandler.js";
+import { APIError } from "./errorHandler.js";
 
 export const isAdminUser = (req, res, next) => {
   if (req.userInfo.role !== "ADMIN") {
-    globalErrorHandler(new Error("Access Denied! You are not a ADMIN"));
+    return next(new APIError("Access Denied! You are not a ADMIN",403));
   }
-  next();
 };

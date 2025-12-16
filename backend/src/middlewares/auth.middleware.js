@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
-import { globalErrorHandler } from "./errorHandler.js";
+import { APIError } from "./errorHandler.js";
 export const authMiddleware = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   console.log(authHeader);
   const token = authHeader && authHeader.split(" ")[1];
   if (!token) {
-    return next(new Error("Access Denied. No Token Provided."));
+    return next(new APIError("Access Denied. No Token Provided."));
   }
   //decode the token
   try {
@@ -14,6 +14,6 @@ export const authMiddleware = (req, res, next) => {
     req.userInfo = decodeToken;
     next();
   } catch (error) {
-    globalErrorHandler(error);
+     return next(new APIError("Access Denied! You are not Authorized",403));
   }
 };

@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import { configDotenv } from "dotenv";
+import { APIError } from "../middlewares/errorHandler.js";
 configDotenv();
 const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
-  throw new Error("MONGO_URI is not set in environment variables");
+  throw new APIError("MONGO_URI is not set in environment variables");
 }
 export async function connectDB() {
   try {
