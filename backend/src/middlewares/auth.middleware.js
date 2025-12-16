@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { errorHandling, handleResponse } from "../helpers/helper_functions";
+import { globalErrorHandler } from "./errorHandler.js";
 export const authMiddleware = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   console.log(authHeader);
@@ -14,6 +14,6 @@ export const authMiddleware = (req, res, next) => {
     req.userInfo = decodeToken;
     next();
   } catch (error) {
-    errorHandling(error);
+    globalErrorHandler(error);
   }
 };
