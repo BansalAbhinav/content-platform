@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const postSchema = Schema(
+const resourceSchema = Schema(
   {
     title: {
       type: String,
@@ -14,14 +14,23 @@ const postSchema = Schema(
       type: String,
       default: "",
     },
-    user: {
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
     },
+     category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Categorys",
+    },
+    status:{
+      type:String,
+      enum:['DRAFT','PUBLISHED','ARCHIVED'],
+      default:"DRAFT"
+    }
   },
   {
     timestamps: true,
   },
 );
 
-export default Posts = mongoose.model("Posts", postSchema);
+export default Resources = mongoose.model("Resources", resourceSchema);
